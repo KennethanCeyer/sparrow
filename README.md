@@ -9,7 +9,28 @@ tit is configure managing tool on Golang. When you need to separate configure fi
 
 And tit supports environment isolation, When you use multiple stage for production, alpha and local. tit will overwrite specific env configuration to general configuration. 
 
-### Quick Start
+## Quick Start
+
+### Installation
+
+In your terminal
+
+```bash
+go get github.com/KennethanCeyer/tit
+```
+
+In your code
+
+```go
+import "github.com/KennethanCeyer/tit"
+
+var config map[string]interface{}
+
+err := tit.ReadFile("./your_config_path.yml", &config)
+```
+
+### Example
+
 
 > YAML file
 ```yaml
@@ -83,6 +104,8 @@ var ymlConfig Config
 2019/08/12 16:54:02 jsonConfig {tit 1.0.0 true}
 2019/08/12 16:54:02 tomlConfig {tit 1.0.0 true}
 ```
+
+For your more information, Please check [the example](./tree/master/example)
 
 ## Roadmap
 
