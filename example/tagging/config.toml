@@ -1,0 +1,18 @@
+[server]
+debug = false
+
+  [server.host]
+  ip = "0.0.0.0"
+  port = 8000.0
+
+  [server.credential]
+
+    [server.credential.admin]
+    id = "admin"
+    pw = "demo"
+    encrypt = "aes128"
+
+  [server.auth]
+  token = "jwt"
+  expires = 3600.0
+  anonymous = false

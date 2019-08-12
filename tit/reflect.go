@@ -67,11 +67,12 @@ func propagateToModel(data map[interface{}]interface{}, model interface{}) {
 	typeSt := v.Type()
 	names := getFieldNames(typeSt)
 	tags := getFieldTags(typeSt)
+	flattenData := utils.Flatten(data)
 
-	for key, value := range data {
+	for key, value := range flattenData {
 		if utils.InArray(key, tags) {
 			field := getFieldByTag(v, key.(string))
-			field.Set(reflect.ValueOf(value))
+			utils.SoftSet(field, reflect.ValueOf(value))
 			continue
 		}
 
@@ -80,6 +81,6 @@ func propagateToModel(data map[interface{}]interface{}, model interface{}) {
 			continue
 		}
 
-		v.FieldByName(matchKey).Set(reflect.ValueOf(value))
+		utils.SoftSet(v.FieldByName(matchKey), reflect.ValueOf(value))
 	}
 }

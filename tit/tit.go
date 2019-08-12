@@ -5,6 +5,8 @@ import (
 	"github.com/KennethanCeyer/tit/resolver"
 	"github.com/KennethanCeyer/tit/resolver/handler"
 	"io/ioutil"
+	"path"
+	"runtime"
 	"strings"
 )
 
@@ -27,6 +29,11 @@ func getResolver(resolverType resolver.Type) (rv *resolver.Resolver, err error) 
 }
 
 func ReadFile(file string, model interface{}) (err error) {
+	if !path.IsAbs(file) {
+		_, callerPath, _, _ := runtime.Caller(1)
+		file = path.Join(path.Dir(callerPath), file)
+	}
+
 	resolverType, err := getTypeFromExt(file)
 	if err != nil {
 		return err
