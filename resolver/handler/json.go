@@ -1,12 +1,18 @@
 package handler
 
+import (
+	"encoding/json"
+	"tit/utils"
+)
+
 type JSONResolver struct {
 }
 
-func (rv JSONResolver) Tag(model interface{}) (err error) {
-	return
-}
-
 func (rv JSONResolver) Resolve(data []byte) (resolvedData map[interface{}]interface{}, err error) {
-	return
+	var dataPack interface{}
+	err = json.Unmarshal(data, &dataPack)
+	if err != nil {
+		return nil, err
+	}
+	return utils.ConvertMapForm(dataPack.(map[string]interface{})), nil
 }

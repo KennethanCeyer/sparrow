@@ -1,8 +1,6 @@
 package tit
 
 import (
-	"fmt"
-	"log"
 	"reflect"
 	"tit/utils"
 )
@@ -13,7 +11,7 @@ func getFieldNames(t reflect.Type) []string {
 	len := 0
 	for i:=0; i<numField; i++ {
 		name := t.Field(i).Name
-		if name[0] < 'A' || name[1] > 'Z' {
+		if name[0] < 'A' || name[0] > 'Z' {
 			continue
 		}
 
@@ -33,7 +31,7 @@ func getFieldTags(t reflect.Type) []string {
 }
 
 func getFieldByTag(v reflect.Value, tag string) reflect.Value {
-	t := reflect.TypeOf(v)
+	t := v.Type()
 	numField := t.NumField()
 	for i:=0; i<numField; i++ {
 		if tag == t.Field(i).Tag.Get(AppName) {
@@ -50,7 +48,6 @@ func findPropertyByKey(key string, properties []string) string {
 		filterKeys := []string{key, utils.ToCamelCase(key), utils.ToPascalCase(key)}
 		for _, filterValue := range filterKeys {
 			if filterValue == value {
-				log.Println(filterValue)
 				return filterValue
 			}
 		}
@@ -60,14 +57,16 @@ func findPropertyByKey(key string, properties []string) string {
 
 func propagateToModel(data map[interface{}]interface{}, model interface{}) {
 	v := reflect.ValueOf(model)
-	if v.Kind() == reflect.Ptr && !v.IsNil() {
+	if v.Kind() == reflect.Ptr {
+		if v.IsNil() {
+			v.Set(reflect.New(reflect.TypeOf(v.Elem())))
+		}
 		v = v.Elem()
 	}
 
 	typeSt := v.Type()
 	names := getFieldNames(typeSt)
-	fmt.Println(names)
-	tags := getFieldTags
+	tags := getFieldTags(typeSt)
 
 	for key, value := range data {
 		if utils.InArray(key, tags) {
@@ -81,7 +80,6 @@ func propagateToModel(data map[interface{}]interface{}, model interface{}) {
 			continue
 		}
 
-		log.Println(matchKey, reflect.ValueOf(value), v, v.Kind(), v.FieldByName(matchKey).Kind(), v.FieldByName(matchKey))
-		v.FieldByName(matchKey).SetString(reflect.ValueOf(value).String())
+		v.FieldByName(matchKey).Set(reflect.ValueOf(value))
 	}
 }

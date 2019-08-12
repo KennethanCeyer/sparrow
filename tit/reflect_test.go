@@ -6,15 +6,15 @@ import (
 )
 
 type TestModel struct {
-	Apple  string `tit:"circle"`
+	Apple  string
 	Banana string
 	Grape  string
 }
 
 type TestModelWithTag struct {
 	Apple  string `tit:"circle"`
-	Banana string `tit:long`
-	Grape  string `tit:clumpy`
+	Banana string `tit:"long"`
+	Grape  string `tit:"clumpy"`
 }
 
 func TestPropagateToModelWithoutTag(t *testing.T) {

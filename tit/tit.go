@@ -43,12 +43,11 @@ func ReadFile(file string, model interface{}) (err error) {
 	}
 
 	rv := *rvPointer
-	rv.Tag(model)
 	resolvedData, err := rv.Resolve(data)
 	if err != nil {
 		return err
 	}
 
-	propagateToModel(resolvedData, &model)
+	propagateToModel(resolvedData, model)
 	return
 }

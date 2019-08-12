@@ -1,6 +1,8 @@
 package main
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestBasicMain(t *testing.T) {
 	err := InitConfig()

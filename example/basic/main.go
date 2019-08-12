@@ -14,11 +14,29 @@ type Config struct {
 // go run example/basic/main.go
 func InitConfig() error {
 	var ymlConfig Config
-	err := tit.ReadFile("./config.yml", &ymlConfig)
+	var jsonConfig Config
+	var tomlConfig Config
+	var err error
+
+	err = tit.ReadFile("./config.yml", &ymlConfig)
 	if err != nil {
 		return err
 	}
+
+	err = tit.ReadFile("./config.json", &jsonConfig)
+	if err != nil {
+		return err
+	}
+
+	err = tit.ReadFile("./config.toml", &tomlConfig)
+	if err != nil {
+		return err
+	}
+
 	log.Println("ymlConfig", ymlConfig)
+	log.Println("jsonConfig", jsonConfig)
+	log.Println("tomlConfig", jsonConfig)
+
 	return nil
 }
 
