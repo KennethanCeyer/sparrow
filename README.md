@@ -105,7 +105,7 @@ var ymlConfig Config
 2019/08/12 16:54:02 tomlConfig {tit 1.0.0 true}
 ```
 
-For your more information, Please check [the example](./tree/master/example)
+For your more information, Please check [the example](./example)
 
 ## Roadmap
 
