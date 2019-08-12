@@ -1,8 +1,8 @@
 package main
 
 import (
+	"github.com/KennethanCeyer/tit/tit"
 	"log"
-	"tit/tit"
 )
 
 type Config struct {

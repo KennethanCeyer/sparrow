@@ -1,8 +1,8 @@
 package tit
 
 import (
+	"github.com/KennethanCeyer/tit/utils"
 	"reflect"
-	"tit/utils"
 )
 
 func getFieldNames(t reflect.Type) []string {

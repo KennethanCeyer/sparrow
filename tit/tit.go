@@ -2,10 +2,10 @@ package tit
 
 import (
 	"fmt"
+	"github.com/KennethanCeyer/tit/resolver"
+	"github.com/KennethanCeyer/tit/resolver/handler"
 	"io/ioutil"
 	"strings"
-	"tit/resolver"
-	"tit/resolver/handler"
 )
 
 const AppName = "tit"

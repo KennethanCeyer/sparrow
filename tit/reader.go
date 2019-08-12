@@ -1,9 +1,9 @@
 package tit
 
 import (
+	"github.com/KennethanCeyer/tit/resolver"
 	"path/filepath"
 	"strings"
-	"tit/resolver"
 )
 
 func cleansingAlias(name string) (alias resolver.Type) {
