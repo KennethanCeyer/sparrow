@@ -5,18 +5,36 @@ import (
 	"log"
 )
 
-type Config struct {
-	Host      string `tit:"host"`
-	IPAddr    string `tit:"ip"`
-	Port      int    `tit:"port"`
-	Admin     string `tit:"admin"`
-	Id        string `tit:"id"`
-	Pw        string `tit:"pw"`
-	Encrypt   string `tit:"encrypt"`
+type Server struct {
+	Host Host `tit:"host"`
+}
+
+type Host struct {
+	IPAddr string `tit:"ip"`
+	Port   int    `tit:"port"`
+}
+
+type Credential struct {
+	Admin Admin `tit:"admin"`
+}
+
+type Admin struct {
+	Id      string `tit:"id"`
+	Pw      string `tit:"pw"`
+	Encrypt string `tit:"encrypt"`
+}
+
+type Auth struct {
 	Token     string `tit:"token"`
 	Expires   int    `tit:"expires"`
 	Anonymous bool   `tit:"anonymous"`
-	Debug     bool   `tit:"debug"`
+}
+
+type Config struct {
+	Server     Server     `tit:"server"`
+	Credential Credential `tit:"credential"`
+	Auth       Auth       `tit:"auth"`
+	Debug      bool       `tit:"debug"`
 }
 
 // go run example/tagging/main.go
@@ -43,7 +61,7 @@ func InitConfig() error {
 
 	log.Println("ymlConfig", ymlConfig)
 	log.Println("jsonConfig", jsonConfig)
-	log.Println("tomlConfig", jsonConfig)
+	log.Println("tomlConfig", tomlConfig)
 
 	return nil
 }

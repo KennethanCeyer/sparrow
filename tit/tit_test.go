@@ -72,3 +72,15 @@ func TestReadFileWithTOML(t *testing.T) {
 	assert.Equal(t, "1.0.0", config.AppVersion)
 	assert.Equal(t, true, config.Debug)
 }
+
+func TestReadFileWithMapModel(t *testing.T) {
+	t.Skip()
+	var config map[string]interface{}
+
+	err := ReadFile("../testdata/config.yml", &config)
+
+	assert.NoError(t, err)
+	assert.Equal(t, "tit", config["appName"])
+	assert.Equal(t, "1.0.0", config["appVersion"])
+	assert.Equal(t, true, config["debug"])
+}

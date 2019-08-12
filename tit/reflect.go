@@ -2,6 +2,7 @@ package tit
 
 import (
 	"github.com/KennethanCeyer/tit/utils"
+	"log"
 	"reflect"
 )
 
@@ -55,8 +56,47 @@ func findPropertyByKey(key string, properties []string) string {
 	return ""
 }
 
+func processValue(model reflect.Value, key string, value interface{}, names []string, tags []string) {
+	var field reflect.Value
+
+	if utils.InArray(key, tags) {
+		field = getFieldByTag(model, key)
+	} else if matchKey := findPropertyByKey(key, names); matchKey != "" {
+		field = model.FieldByName(matchKey)
+	}
+
+	if reflect.ValueOf(value).Kind() == reflect.Map {
+		propagateToModel(value.(map[interface{}]interface{}), field)
+		return
+	}
+
+	if !field.CanSet() {
+		log.Println(key, model, model.Type(), field, names, tags, utils.InArray(key, tags))
+		return
+	}
+
+	utils.SoftSet(field, reflect.ValueOf(value))
+}
+
+func propagateToStruct(data map[interface{}]interface{}, model reflect.Value) {
+	typeSt := model.Type()
+
+	names := getFieldNames(typeSt)
+	tags := getFieldTags(typeSt)
+
+	for resolvedKey, resolvedValue := range data {
+		processValue(model, resolvedKey.(string), resolvedValue, names, tags)
+	}
+}
+
+
 func propagateToModel(data map[interface{}]interface{}, model interface{}) {
 	v := reflect.ValueOf(model)
+
+	if v.Type() == reflect.TypeOf(reflect.Value{}) {
+		v = model.(reflect.Value)
+	}
+
 	if v.Kind() == reflect.Ptr {
 		if v.IsNil() {
 			v.Set(reflect.New(reflect.TypeOf(v.Elem())))
@@ -64,23 +104,8 @@ func propagateToModel(data map[interface{}]interface{}, model interface{}) {
 		v = v.Elem()
 	}
 
-	typeSt := v.Type()
-	names := getFieldNames(typeSt)
-	tags := getFieldTags(typeSt)
-	flattenData := utils.Flatten(data)
-
-	for key, value := range flattenData {
-		if utils.InArray(key, tags) {
-			field := getFieldByTag(v, key.(string))
-			utils.SoftSet(field, reflect.ValueOf(value))
-			continue
-		}
-
-		matchKey := findPropertyByKey(key.(string), names)
-		if matchKey == "" {
-			continue
-		}
-
-		utils.SoftSet(v.FieldByName(matchKey), reflect.ValueOf(value))
+	switch v.Kind(){
+	case reflect.Struct:
+		propagateToStruct(data, v)
 	}
 }
