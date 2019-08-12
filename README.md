@@ -11,40 +11,88 @@ And tit supports environment isolation, When you use multiple stage for producti
 
 ### Quick Start
 
+> YAML file
+```yaml
+appName: 'tit'
+appVersion: '1.0.0'
+debug: true
+
+```
+
+> JSON file
+```json
+{
+  "appName": "tit",
+  "appVersion": "1.0.0",
+  "debug": true
+}
+```
+
+> TOML file
+```toml
+appName = "tit"
+appVersion = "1.0.0"
+debug = true
+```
+
 ```go
 import (
+	"github.com/KennethanCeyer/tit/tit"
 	"log"
-	"https://github.com/KennethanCeyer/tit"
 )
 
 type Config struct {
-	AppName     string
-	AppVersion  string
-	Debug       string
+	AppName    string
+	AppVersion string
+	Debug      bool
 }
 
 func main() {
-	config := new(Config)
-    tit.ReadFile("./config/config.yml", config)
-	log.Println(config)
+var ymlConfig Config
+	var jsonConfig Config
+	var tomlConfig Config
+	var err error
+
+	err = tit.ReadFile("./config.yml", &ymlConfig)
+	if err != nil {
+		return err
+	}
+
+	err = tit.ReadFile("./config.json", &jsonConfig)
+	if err != nil {
+		return err
+	}
+
+	err = tit.ReadFile("./config.toml", &tomlConfig)
+	if err != nil {
+		return err
+	}
+
+	log.Println("ymlConfig", ymlConfig)
+	log.Println("jsonConfig", jsonConfig)
+	log.Println("tomlConfig", jsonConfig)
+
+	return nil
 }
 ```
 
 **OUTPUT**
 
-```go
-&{tit 1.0.0 verbose}
+```bash
+2019/08/12 16:54:02 ymlConfig {tit 1.0.0 true}
+2019/08/12 16:54:02 jsonConfig {tit 1.0.0 true}
+2019/08/12 16:54:02 tomlConfig {tit 1.0.0 true}
 ```
 
 ## Roadmap
 
 ### Configuration parser
 
-- [ ] YAML
-- [ ] JSON
-- [ ] TOML
+- [x] YAML
+- [x] JSON
+- [x] TOML
 
 ### Documentation
 
-- [ ] Example
+- [x] Example
 - [ ] API Guide
