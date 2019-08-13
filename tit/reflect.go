@@ -2,7 +2,6 @@ package tit
 
 import (
 	"github.com/KennethanCeyer/tit/utils"
-	"log"
 	"reflect"
 )
 
@@ -56,7 +55,7 @@ func findPropertyByKey(key string, properties []string) string {
 	return ""
 }
 
-func processValue(model reflect.Value, key string, value interface{}, names []string, tags []string) {
+func processStructValue(model reflect.Value, key string, value interface{}, names []string, tags []string) {
 	var field reflect.Value
 
 	if utils.InArray(key, tags) {
@@ -71,7 +70,6 @@ func processValue(model reflect.Value, key string, value interface{}, names []st
 	}
 
 	if !field.CanSet() {
-		log.Println(key, model, model.Type(), field, names, tags, utils.InArray(key, tags))
 		return
 	}
 
@@ -85,7 +83,14 @@ func propagateToStruct(data map[interface{}]interface{}, model reflect.Value) {
 	tags := getFieldTags(typeSt)
 
 	for resolvedKey, resolvedValue := range data {
-		processValue(model, resolvedKey.(string), resolvedValue, names, tags)
+		processStructValue(model, resolvedKey.(string), resolvedValue, names, tags)
+	}
+}
+
+func propagateToMap(data map[interface{}]interface{}, model reflect.Value) {
+	model.Set(reflect.MakeMap(model.Type()))
+	for resolvedKey, resolvedValue := range data {
+		model.SetMapIndex(reflect.ValueOf(resolvedKey), reflect.ValueOf(resolvedValue))
 	}
 }
 
@@ -107,5 +112,7 @@ func propagateToModel(data map[interface{}]interface{}, model interface{}) {
 	switch v.Kind(){
 	case reflect.Struct:
 		propagateToStruct(data, v)
+	case reflect.Map:
+		propagateToMap(data, v)
 	}
 }
