@@ -1,4 +1,5 @@
 <h1 align="center">sparrow</h1>
+<p align="center"><img src="https://github.com/KennethanCeyer/sparrow/workflows/CI/badge.svg" alt="CI Badge"></p>
 <p align="center">:bird: Golang env based configure management module which is supported yaml, toml, json</p>
 
 ## Getting Started
