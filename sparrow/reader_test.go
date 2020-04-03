@@ -1,7 +1,7 @@
-package tit
+package sparrow
 
 import (
-	"github.com/KennethanCeyer/tit/resolver"
+	"github.com/KennethanCeyer/sparrow/resolver"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
