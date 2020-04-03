@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/KennethanCeyer/tit/tit"
+	"github.com/KennethanCeyer/sparrow/sparrow"
 	"log"
 )
 
@@ -18,17 +18,17 @@ func InitConfig() error {
 	var tomlConfig Config
 	var err error
 
-	err = tit.ReadFile("./config.yml", &ymlConfig)
+	err = sparrow.ReadFile("./config.yml", &ymlConfig)
 	if err != nil {
 		return err
 	}
 
-	err = tit.ReadFile("./config.json", &jsonConfig)
+	err = sparrow.ReadFile("./config.json", &jsonConfig)
 	if err != nil {
 		return err
 	}
 
-	err = tit.ReadFile("./config.toml", &tomlConfig)
+	err = sparrow.ReadFile("./config.toml", &tomlConfig)
 	if err != nil {
 		return err
 	}

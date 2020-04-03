@@ -2,7 +2,7 @@ package handler
 
 import (
 	"github.com/BurntSushi/toml"
-	"github.com/KennethanCeyer/tit/utils"
+	"github.com/KennethanCeyer/sparrow/utils"
 )
 
 type TOMLResolver struct {

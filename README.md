@@ -1,13 +1,13 @@
-<h1 align="center">tit</h1>
+<h1 align="center">sparrow</h1>
 <p align="center">:bird: Golang env based configure management module which is supported yaml, toml, json</p>
 
 ## Getting Started
 
-### What is tit
+### What is sparrow
 
-tit is configure managing tool on Golang. When you need to separate configure file as file (toml, yml, json). This module easily read and parse them to pass the content to Golang code.
+sparrow is configure managing tool on Golang. When you need to separate configure file as file (toml, yml, json). This module easily read and parse them to pass the content to Golang code.
 
-And tit supports environment isolation, When you use multiple stage for production, alpha and local. tit will overwrite specific env configuration to general configuration. 
+And sparrow supports environment isolation, When you use multiple stage for production, alpha and local. sparrow will overwrite specific env configuration to general configuration. 
 
 ## Quick Start
 
@@ -16,17 +16,17 @@ And tit supports environment isolation, When you use multiple stage for producti
 In your terminal
 
 ```bash
-go get github.com/KennethanCeyer/tit
+go get github.com/KennethanCeyer/sparrow
 ```
 
 In your code
 
 ```go
-import "github.com/KennethanCeyer/tit"
+import "github.com/KennethanCeyer/sparrow"
 
 var config map[string]interface{}
 
-err := tit.ReadFile("./your_config_path.yml", &config)
+err := sparrow.ReadFile("./your_config_path.yml", &config)
 ```
 
 ### Example
@@ -34,7 +34,7 @@ err := tit.ReadFile("./your_config_path.yml", &config)
 
 > YAML file
 ```yaml
-appName: 'tit'
+appName: 'sparrow'
 appVersion: '1.0.0'
 debug: true
 
@@ -43,7 +43,7 @@ debug: true
 > JSON file
 ```json
 {
-  "appName": "tit",
+  "appName": "sparrow",
   "appVersion": "1.0.0",
   "debug": true
 }
@@ -51,14 +51,14 @@ debug: true
 
 > TOML file
 ```toml
-appName = "tit"
+appName = "sparrow"
 appVersion = "1.0.0"
 debug = true
 ```
 
 ```go
 import (
-	"github.com/KennethanCeyer/tit/tit"
+	"github.com/KennethanCeyer/sparrow/sparrow"
 	"log"
 )
 
@@ -74,17 +74,17 @@ var ymlConfig Config
 	var tomlConfig Config
 	var err error
 
-	err = tit.ReadFile("./config.yml", &ymlConfig)
+	err = sparrow.ReadFile("./config.yml", &ymlConfig)
 	if err != nil {
 		return err
 	}
 
-	err = tit.ReadFile("./config.json", &jsonConfig)
+	err = sparrow.ReadFile("./config.json", &jsonConfig)
 	if err != nil {
 		return err
 	}
 
-	err = tit.ReadFile("./config.toml", &tomlConfig)
+	err = sparrow.ReadFile("./config.toml", &tomlConfig)
 	if err != nil {
 		return err
 	}
@@ -100,9 +100,9 @@ var ymlConfig Config
 **OUTPUT**
 
 ```bash
-2019/08/12 16:54:02 ymlConfig {tit 1.0.0 true}
-2019/08/12 16:54:02 jsonConfig {tit 1.0.0 true}
-2019/08/12 16:54:02 tomlConfig {tit 1.0.0 true}
+2019/08/12 16:54:02 ymlConfig {sparrow 1.0.0 true}
+2019/08/12 16:54:02 jsonConfig {sparrow 1.0.0 true}
+2019/08/12 16:54:02 tomlConfig {sparrow 1.0.0 true}
 ```
 
 For your more information, Please check [the example](./example)

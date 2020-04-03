@@ -1,40 +1,40 @@
 package main
 
 import (
-	"github.com/KennethanCeyer/tit/tit"
+	"github.com/KennethanCeyer/sparrow/sparrow"
 	"log"
 )
 
 type Server struct {
-	Host Host `tit:"host"`
+	Host Host `sparrow:"host"`
 }
 
 type Host struct {
-	IPAddr string `tit:"ip"`
-	Port   int    `tit:"port"`
+	IPAddr string `sparrow:"ip"`
+	Port   int    `sparrow:"port"`
 }
 
 type Credential struct {
-	Admin Admin `tit:"admin"`
+	Admin Admin `sparrow:"admin"`
 }
 
 type Admin struct {
-	Id      string `tit:"id"`
-	Pw      string `tit:"pw"`
-	Encrypt string `tit:"encrypt"`
+	Id      string `sparrow:"id"`
+	Pw      string `sparrow:"pw"`
+	Encrypt string `sparrow:"encrypt"`
 }
 
 type Auth struct {
-	Token     string `tit:"token"`
-	Expires   int    `tit:"expires"`
-	Anonymous bool   `tit:"anonymous"`
+	Token     string `sparrow:"token"`
+	Expires   int    `sparrow:"expires"`
+	Anonymous bool   `sparrow:"anonymous"`
 }
 
 type Config struct {
-	Server     Server     `tit:"server"`
-	Credential Credential `tit:"credential"`
-	Auth       Auth       `tit:"auth"`
-	Debug      bool       `tit:"debug"`
+	Server     Server     `sparrow:"server"`
+	Credential Credential `sparrow:"credential"`
+	Auth       Auth       `sparrow:"auth"`
+	Debug      bool       `sparrow:"debug"`
 }
 
 // go run example/tagging/main.go
@@ -44,17 +44,17 @@ func InitConfig() error {
 	var tomlConfig Config
 	var err error
 
-	err = tit.ReadFile("./config.yml", &ymlConfig)
+	err = sparrow.ReadFile("./config.yml", &ymlConfig)
 	if err != nil {
 		return err
 	}
 
-	err = tit.ReadFile("./config.json", &jsonConfig)
+	err = sparrow.ReadFile("./config.json", &jsonConfig)
 	if err != nil {
 		return err
 	}
 
-	err = tit.ReadFile("./config.toml", &tomlConfig)
+	err = sparrow.ReadFile("./config.toml", &tomlConfig)
 	if err != nil {
 		return err
 	}

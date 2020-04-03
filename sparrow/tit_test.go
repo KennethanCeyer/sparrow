@@ -1,8 +1,8 @@
-package tit
+package sparrow
 
 import (
 	"fmt"
-	"github.com/KennethanCeyer/tit/resolver"
+	"github.com/KennethanCeyer/sparrow/resolver"
 	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
@@ -36,7 +36,7 @@ func TestReadFileWithYAML(t *testing.T) {
 	err := ReadFile("../testdata/config.yml", &config)
 
 	assert.NoError(t, err)
-	assert.Equal(t, "tit", config.AppName)
+	assert.Equal(t, "sparrow", config.AppName)
 	assert.Equal(t, "1.0.0", config.AppVersion)
 	assert.Equal(t, true, config.Debug)
 }
@@ -52,7 +52,7 @@ func TestReadFileWithJSON(t *testing.T) {
 	err := ReadFile("../testdata/config.json", &config)
 
 	assert.NoError(t, err)
-	assert.Equal(t, "tit", config.AppName)
+	assert.Equal(t, "sparrow", config.AppName)
 	assert.Equal(t, "1.0.0", config.AppVersion)
 	assert.Equal(t, true, config.Debug)
 }
@@ -68,7 +68,7 @@ func TestReadFileWithTOML(t *testing.T) {
 	err := ReadFile("../testdata/config.toml", &config)
 
 	assert.NoError(t, err)
-	assert.Equal(t, "tit", config.AppName)
+	assert.Equal(t, "sparrow", config.AppName)
 	assert.Equal(t, "1.0.0", config.AppVersion)
 	assert.Equal(t, true, config.Debug)
 }
@@ -80,7 +80,7 @@ func TestReadFileWithMapModel(t *testing.T) {
 	err := ReadFile("../testdata/config.yml", &config)
 
 	assert.NoError(t, err)
-	assert.Equal(t, "tit", config["appName"])
+	assert.Equal(t, "sparrow", config["appName"])
 	assert.Equal(t, "1.0.0", config["appVersion"])
 	assert.Equal(t, true, config["debug"])
 }

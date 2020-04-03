@@ -2,7 +2,7 @@ package handler
 
 import (
 	"encoding/json"
-	"github.com/KennethanCeyer/tit/utils"
+	"github.com/KennethanCeyer/sparrow/utils"
 )
 
 type JSONResolver struct {

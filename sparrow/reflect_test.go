@@ -1,4 +1,4 @@
-package tit
+package sparrow
 
 import (
 	"github.com/stretchr/testify/assert"
@@ -12,9 +12,9 @@ type TestModel struct {
 }
 
 type TestModelWithTag struct {
-	Apple  string `tit:"circle"`
-	Banana string `tit:"long"`
-	Grape  string `tit:"clumpy"`
+	Apple  string `sparrow:"circle"`
+	Banana string `sparrow:"long"`
+	Grape  string `sparrow:"clumpy"`
 }
 
 func TestPropagateToModelWithoutTag(t *testing.T) {

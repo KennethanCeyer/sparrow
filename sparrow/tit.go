@@ -1,16 +1,16 @@
-package tit
+package sparrow
 
 import (
 	"fmt"
-	"github.com/KennethanCeyer/tit/resolver"
-	"github.com/KennethanCeyer/tit/resolver/handler"
+	"github.com/KennethanCeyer/sparrow/resolver"
+	"github.com/KennethanCeyer/sparrow/resolver/handler"
 	"io/ioutil"
 	"path"
 	"runtime"
 	"strings"
 )
 
-const AppName = "tit"
+const AppName = "sparrow"
 
 func getResolver(resolverType resolver.Type) (rv *resolver.Resolver, err error) {
 	var rvHandler resolver.Resolver

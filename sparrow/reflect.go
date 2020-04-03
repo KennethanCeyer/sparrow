@@ -1,7 +1,7 @@
-package tit
+package sparrow
 
 import (
-	"github.com/KennethanCeyer/tit/utils"
+	"github.com/KennethanCeyer/sparrow/utils"
 	"reflect"
 )
 
