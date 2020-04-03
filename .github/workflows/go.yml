@@ -30,8 +30,5 @@ jobs:
             dep ensure
         fi
 
-    - name: build
-      run: go build -v .
-
     - name: test
       run: go test ./...
