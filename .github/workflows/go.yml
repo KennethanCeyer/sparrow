@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
 
   build:
-    name: Build
+    name: CI
     runs-on: ubuntu-latest
     steps:
 
